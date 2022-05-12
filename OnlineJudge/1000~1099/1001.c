@@ -41,6 +41,5 @@ int main(void)
 		MoveSum = D + A;
 
 	printf("%d", MoveSum);
-
 	return 0;
 }
