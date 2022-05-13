@@ -9,4 +9,23 @@
 #include <time.h>
 #include <Windows.h>
 
-// Pointer
+int main(void)
+{
+    int a = 10, b = 20;
+    printf("Àü ] a = %d | b = %d\n", a, b);
+
+    //====================================
+
+    int *pa;
+    int *pb; 
+    int temp;
+    pa = &a;
+    pb = &b;
+    temp = *pa;
+    *pa = *pb;
+    *pb = temp;
+
+
+    //====================================
+    printf("ÈÄ ] a = %d | b = %d\n", a, b);
+}
