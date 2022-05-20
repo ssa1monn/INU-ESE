@@ -11,21 +11,10 @@
 
 int main(void)
 {
-    int a = 10, b = 20;
-    printf(" ] a = %d | b = %d\n", a, b);
+    int arr[5] = {10, 20, 30, 40, 50};
+    int* p = arr;
 
-    //====================================
+    printf("%p %p %d %d", p, &p, *p, *(p+1));
 
-    int *pa;
-    int *pb; 
-    int temp;
-    pa = &a;
-    pb = &b;
-    temp = *pa;
-    *pa = *pb;
-    *pb = temp;
-
-
-    //====================================
-    printf(" ] a = %d | b = %d\n", a, b);
+    return 0;
 }
