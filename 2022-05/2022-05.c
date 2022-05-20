@@ -12,7 +12,7 @@
 int main(void)
 {
     int a = 10, b = 20;
-    printf("Àü ] a = %d | b = %d\n", a, b);
+    printf(" ] a = %d | b = %d\n", a, b);
 
     //====================================
 
@@ -27,5 +27,5 @@ int main(void)
 
 
     //====================================
-    printf("ÈÄ ] a = %d | b = %d\n", a, b);
+    printf(" ] a = %d | b = %d\n", a, b);
 }
