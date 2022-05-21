@@ -17,8 +17,8 @@ int main(void)
 
         if(dis >= 0)
         {
-            printf("방정식의 근은 %f 입니다."  (-b + sqrt(dis)) / 2*a);
-            printf("방정식의 근은 %f 입니다."  (-b + sqrt(dis)) / 2*a);
+            printf("방정식의 근은 %f 입니다.\n", (-b + sqrt(dis)) / 2*a);
+            printf("방정식의 근은 %f 입니다.", (-b + sqrt(dis)) / 2*a);
         }
         
         else
