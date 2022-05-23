@@ -3,9 +3,13 @@
 int isPrime(int input)
 {
 	int i;
+
+	if (input <= 1)
+		return 0;
+
 	for (i = 2; i < input; i++)
 	{
-		if (input % i == 0 || input <= 1)
+		if (input % i == 0)
 			return 0;
 	}
 	return 1;
