@@ -18,9 +18,9 @@
 
 int main(void)
 {
-    char s[20];
-    char s1[20];
-    char s2[20];
+    char s[20] = {0,};
+    char s1[20] = {0,};
+    char s2[20] = {0,};
 
     int count = 0;
 
@@ -32,25 +32,15 @@ int main(void)
         for (int m = 0; m < n; m++)
         {
             if (m == i)
-            {
                 continue;
-            }
             else if (m > i)
-            {
                 s1[m - 1] = s[m];
-            }
             else
-            {
                 s1[m] = s[m];
-            }
         }
-        s1[n-1] = '\0';
 
         for (int m = 0; m < n; m++)
-        {
                 s2[m] = s1[n - 2 - m];
-        }
-        s2[n-1] = '\0';
 
         if (strcmp(s1, s2) == 0)
             count = count + i;
