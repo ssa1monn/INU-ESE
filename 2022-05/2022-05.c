@@ -89,3 +89,22 @@ int main(void)
     return 0;
 }
 #endif
+
+#if 1
+int main(void)
+{
+    int arr[10];
+    printf("Enter a number: ");
+
+    for (int i = 0; i < 10; i++)
+    {
+        scanf("%d", &arr[i]);
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
+#endif
