@@ -29,6 +29,8 @@ enum ColorType {
 	White		//15
 } COLOR;
 
+//26개
+
 // 게임판의 가로 세로 지정
 #define Width 3
 #define Height 3
