@@ -90,7 +90,7 @@ int main(void)
 }
 #endif
 
-#if 1
+#if 0
 int main(void)
 {
     int arr[10];
@@ -106,5 +106,12 @@ int main(void)
         printf("%d ", arr[i]);
     }
     return 0;
+}
+#endif
+
+#if 1
+int main(void)
+{
+
 }
 #endif
