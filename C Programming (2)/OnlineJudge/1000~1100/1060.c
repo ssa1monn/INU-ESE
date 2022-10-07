@@ -16,7 +16,7 @@ int main() {
 
     for (int i = 0; i < 3; i++) {
         if (arr[i][0] == 10) {
-            int num = arr[i][1];
+            unsigned int num = (unsigned int)arr[i][1];
             int count = 0;
             while (num != 0) {
                 if (num % 10 == 0) {
@@ -27,7 +27,7 @@ int main() {
             printf("%d ", count);
         }
         else if (arr[i][0] == 16) {
-            int num = arr[i][1];
+            unsigned int num = (unsigned int)arr[i][1];
             int count = 0;
             while (num != 0) {
                 if (num % 16 == 0) {
