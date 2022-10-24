@@ -42,8 +42,7 @@ int main(void) {
     char *p = (char *)arr;
 
     for(int i = 0; i < 25; i++) {
-        printf("arr[%d] : ", i);
-        for(int j = 3; j >= 0; j--) printf("%02X ", *(p + j + i * 4));
+        for(int j = 3; j >= 0; j--) printf("%02X ", *((unsigned char*)p + j + i * 4));
         printf("\n");
     }
 
