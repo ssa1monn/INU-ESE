@@ -1,5 +1,5 @@
-#define bmpFile "C:\\Users\\gwski\\Downloads\\resource\\BMP.bmp"
-#define nameFile "C:\\Users\\gwski\\Downloads\\resource\\name.bmp"
+#define bmpFile "C:\\Users\\사용자이름\\Desktop\\resource\\BMP.bmp"
+#define nameFile "C:\\Users\\사용자이름\\Desktop\\resource\\name.bmp"
 
 #include <stdio.h>
 #include <windows.h>

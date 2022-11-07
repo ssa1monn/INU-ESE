@@ -9,7 +9,7 @@ int main(void) {
     HDC hDC = GetDC(hWnd);
     HDC hMemDC = CreateCompatibleDC(hDC);
 
-	HBITMAP hBitmap = (HBITMAP)LoadImage(NULL, TEXT("C:\\Users\\gwski\\Downloads\\picture.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+	HBITMAP hBitmap = (HBITMAP)LoadImage(NULL, TEXT("C:\\Users\\사용자이름\\Desktop\\resource\\BMP.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
     HBITMAP hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
 
     BITMAP Bitmap;

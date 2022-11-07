@@ -1,5 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
-#define bmpFile "C:\\Users\\gwski\\Downloads\\resource\\BMP.bmp"
+#define bmpFile "C:\\Users\\사용자이름\\Desktop\\resource\\BMP.bmp"
 // *** bmpfile 은 배경이 될 사진의 경로입니다. 반드시 사용자에 맞는 경로로 수정해 주십시오. ***
 
 #include <stdio.h>
