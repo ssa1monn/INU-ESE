@@ -16,9 +16,9 @@ void editPixel(int x, int y, int c) {
 
     for (int i = x * width; i < (x + 1) * width; i++) {
         for (int j = y * height; j < (y + 1) * height; j++) {
-            pBits[0 + (j * 3 * Bitmap.bmWidth) + (i * 3)] = c;
-            pBits[1 + (j * 3 * Bitmap.bmWidth) + (i * 3)] = c;
-            pBits[2 + (j * 3 * Bitmap.bmWidth) + (i * 3)] = c;
+            pBits[0 + (j * 3 * Bitmap.bmWidth) + (i * 3) + (Bitmap.bmWidthBytes % 3) * j ] = c;
+            pBits[1 + (j * 3 * Bitmap.bmWidth) + (i * 3) + (Bitmap.bmWidthBytes % 3) * j ] = c;
+            pBits[2 + (j * 3 * Bitmap.bmWidth) + (i * 3) + (Bitmap.bmWidthBytes % 3) * j ] = c;
         }
     }
 }
