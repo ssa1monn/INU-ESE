@@ -1,0 +1,126 @@
+! 배열의 복사
+
+#define SIZE 5
+int grade[SIZE];
+int score[SIZE];
+
+score = grade // error, score와 grade는 포인터 변수가 아닌 주소 상수
+
+올바른 방법
+for (int i = 0; i < SIZE; i++) {
+    score[i] = grade[i];
+}
+
+! 배열의 비교
+
+if (grade == score) printf("~");
+else printf("~)"; // 무조건 같지 않음. 비교가 올바르지 않음.
+
+올바른 방법
+for (int i = 0; i < SIZE; i++) {
+    if (grade[i] != score[i]) {
+        return 0;
+    }
+}
+printf("~");
+
+! 원본 배열의 변경을 금지하는 방법
+
+void copy_array(char dest[], const char src[]) { // const를 통한 배열 원본의 변경 금지
+    for (int i = 0; i < SIZE; i++) {
+        dest[i] = src[i];
+    }
+}
+
+! 각 변수의 특징
+
+char p1[] = "abcde"; p1[1] = 'T' // (= {'a', 'T', 'c', 'd', 'e', '\0'})
+char *p2 = "abcde"; p2[1] = 'T' // error, p2는 문자 상수 공간에 존재하므로 변경 불가
+char c2[] = {'a', 'b', 'c', 'd', 'e'}; c2[1] = 'T' // (= {'a', 'T', 'c', 'd', 'e'})
+
+int avg, *a;
+avg =  test(c2, p2);
+
+int test(char c[], char d[]) { // (char *c, char *d)
+    c[2] = 'R'; // (= {'a', 'T', 'R', 'd', 'e'})
+    d[2] = 'R'; // error, d는 상수 포인터 변수이므로 변경 불가
+    return 0;
+}
+
+! 다차원 배열
+
+int s [3][5] = { s[0][0], s[0][1], s[0][2], s[0][3], s[0][4],
+                 s[1][0], s[1][1], s[1][2], s[1][3], s[1][4],
+                 s[2][0], s[2][1], s[2][2], s[2][3], s[2][4] };
+
+ex) int class[반][번호]
+    int class[학년][반][번호]
+
+    &class[1학년][1반][1번] + 1 = &class[2학년][1반][1번]
+
+    for(z = 0; z < 3; z++) 
+        for(y = 0; y < 3; y++) 
+            for(x = 0; x < 3; x++) 
+                class[z][y][x] = ?
+                // 컴퓨터는 마지막 덩어리를 쭉 불러옴. 즉, [0][0][0]을 불러오면 그 뒤로 예측해서 [0][0][2]까지 가져옴. 그래서 이렇게 해야 빠름.
+                // 우리 컴퓨터는 int에 맞춰져 있어서 int를 연산하는게 가장 빠름. char형은 데이터 저장에는 효율적이지만 연산은 int형이 더 빠름.
+
+! 함수의 다차원 배열 인수
+
+int salse[YEARS][PRODUCTS] = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
+int total_sale = sum(sales);
+
+int sum(int **grade) { // 이런 형식으로 주게 되면 sum 함수 내에서는 grade 배열의 크기를 모름. 즉 n*n 사이즈를 알 수 없기에 주소 연산을 할 수 없음.
+    int total = 0;
+    for (int i = 0; i < YEARS; i++) {
+        for (int j = 0; j < PRODUCTS; j++) {
+            total += grade[i][j];
+        }
+    }
+    return total;
+}
+
+int sum(int grade[][PRODUCTS]) { // PRODUCTS를 기반으로 YEARS를 추측할 수 있음
+    int total = 0;
+    for (int i = 0; i < YEARS; i++) {
+        for (int j = 0; j < PRODUCTS; j++) {
+            total += grade[i][j];
+        }
+    }
+    return total;
+}
+
+! 프로그램의 오류
+
+char *s1 = "Hello";
+scanf("%s", s1);
+printf("%s", s1); // Hello
+오류가 뜨지 않음. 즉, 정상적으로 컴파일 가능하나 제대로 동작하지 않음.
+쓸 공간이 없기 때문.
+
+! 동적 할당
+
+정적 할당 (static allocation) : 변수의 타입, 저장 장소 등이 컴파일 시간에 결정
+동적 할당 (dynamic allocation) : 변수의 타입, 저장 장소 등이 실행 시간에 결정
+
+정적 할당 array ex)  int i[100];
+동적 할당 array ex)  int *i = (int *)malloc(sizeof(int) * 100);
+                    i[10] = 10; free[i];
+
+! 2차원 배열을 할당하려면?
+
+int **i = (int **)malloc(sizeof(int) * row * col); // row * col 짜리 
+
+int **j = (int **)malloc(sizeof(int *) * col);
+j[0] = (int *)malloc(sizeof(int) * row);
+j[1] = (int *)malloc(sizeof(int) * row);
+j[2] = (int *)malloc(sizeof(int) * row); ...
+// = int j[col][row];
+
+free 할때는 역순으로
+
+char *s1 = "Hello";
+s1 = (char *)malloc(sizeof(char) * 27);
+scanf("%s", s1);
+printf("%s", s1); // Hello
+free(s1);
