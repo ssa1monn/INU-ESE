@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <windows.h>
 #include <math.h>
-#include <string.h>
 
 static BITMAP Bitmap;
 static BITMAPINFOHEADER bInfo;
