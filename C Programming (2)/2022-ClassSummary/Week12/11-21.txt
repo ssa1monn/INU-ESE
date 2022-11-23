@@ -1,0 +1,86 @@
+char *p1 = NULL, p2[100], *p3, *p4[5];
+
+scanf_s("%s", p1, 100); // 표준 scnaf가 보안에 취약하니 제시하는 방범. 100은 최대 길이
+printf("%s\n", p1); // 불가능하다, p1은 NULL이며 공간이 배정되어 있지 않음.
+
+scnaf_s("%s", p2, 100);
+printf("%s\n", p2); // p1과 p2의 차이는? 공간 유무의 차이.
+
+다음 프로그램을 만들려 한다.
+ - 문자열을 배열에 입력받음 (최대 100글자)
+ - 물자열 중에 'x'를 "구분자"로 이용
+ - 문자열 중에 'x'는 0의 값으로 치환
+ - 'x'를 기준으로 문자열은 단어로 구분할 수 있다
+ - 입력받은 배열에 저장된 각 단어의 위치를 따로 저장한다 (x는 일단 최대 5개)
+
+!복합 포인터
+
+int arr1[10];
+function1(arr1) : OK
+void function1(int* arr)
+
+int arr2[10][10];
+function2(arr2) : Warning
+void function2(int** arr)
+
+arr2 + 1 = arr2[1][0]
+arr2[0] + 1 = arr2[0][1]
+
+2차원 배열 이름에 일치하는 포인터 선언
+int arr[2][4]; -> int (*pArr)[4];
+
+매개 변수로 사용할 때는 이렇게 써도 됨
+void show_data(int (*ptr)[4]);
+==
+void show_data(int ptr[][4]);
+
+그러나 변수 선언시에는 그렇게 쓰면 안됨
+int arr1[2][4] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+int (*ptr1)[4] = arr1;  // OK
+int ptr2[][4] = arr1;   // Error
+
+int arr[3][4][5][6][7][8][9][10];   // 4 * 3 ~ 10 바이트
+int (*ptr)[4][5][6][7][8][9][10];   // just 4바이트
+
+int* pArr[4] == {int*, int*, int*, int*}
+int (*pArr)[4] == {int[4], int[4], ~ }
+
+아래는 반드시 이론/실습으로 확인하고 이해해야 함
+
+char *fruits[] = {
+    "apple",
+    "blueberry",
+    "orange",
+    "melon"
+    };
+
+char **p1 = fruits;
+
+char fname[ ][10] = {
+    "apple",
+    "blueberry",
+    "orange",
+    "melon"
+    };
+
+char (*p2)[10] = fname;
+
+i = sizeof(fruits);
+printf("sizeof(fruits) = %d\n", i);
+i = sizeof(fruits[0]);
+printf("sizeof(fruits[0]) = %d\n", i);
+
+i = sizeof(fname);
+printf("sizeof(fname) = %d\n", i);
+i = sizeof(fname[0]);
+printf("sizeof(fname[0]) = %d\n", i);
+
+i = sizeof(p1);
+printf("sizeof(p1) = %d\n", i);
+i = sizeof(p1[0]);
+printf("sizeof(p1[0]) = %d\n", i);
+
+i = sizeof(p2);
+printf("sizeof(p2) = %d\n", i);
+i = sizeof(p2[0]);
+printf("sizeof(p2[0]) = %d\n", i);
