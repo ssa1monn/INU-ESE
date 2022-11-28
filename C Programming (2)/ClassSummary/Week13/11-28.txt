@@ -1,0 +1,407 @@
+< 구조체와 공용체, 그리고 나서 함수 포인터 - >
+
+! 공용체 (union)
+
+두 개 이상의 변수들이 같은 메모리를 공유
+서로 다른 자료형을 가질 수 있음
+
+정의, 선언 방법은 구조체와 유사
+단, 구조체는 모든 자료가 별개의 기억장소를 할당받음
+공용체는 가장 크기가 큰 자료형만큼 메모리를 할당받음
+
+공용체는 한 번에 하나의 멤버만 사용될 수 있기 때문에
+초기화도 하나의 멤버에 대해서만 할 수 있음
+다른 멤버를 초기화하면 처음에 초기화 해준 내용은 덮어씌워짐
+
+구조체 선언 ex)
+struct s_tag {
+    double d_num;
+    int i_num;
+    char ch;
+};
+
+공용체 선언 ex)
+union u_tag {
+    double d_num;
+    int i_num;
+    char ch;
+};
+
+공용체의 멤버에 접근하는 방법은 구조체와 동일
+sample.d = 123.098; // 도트 연산자
+p->i = 101;         // 화살표 연산자(포인터를 통한 공용체 접근)
+
+union data {
+    char a;
+    short int b;
+    int c;
+};
+
+int main(void) {
+    union data value;
+
+    value.c = (int)0x12345678;
+
+    printf("value.a = %x\n", value.a);  // 78
+    printf("value.b = %x\n", value.b);  // 5678
+    printf("value.c = %x\n", value.c);  // 12345678
+
+    return 0;
+}
+
+-
+
+struct entries {
+    char a;
+    int b;
+    long c;
+} s;
+
+union list {
+    char x;
+    int y;
+    long z;
+} u;
+
+int main(void) {
+    printf("size of struct entries = %d\n", sizeof(s)); // 12
+    printf("size of union list = %d\n", sizeof(u));     // 4
+
+    return 0;
+}
+
+-
+
+union list {
+    char x;
+    int y;
+    long z;
+} u = {0x12, 0x1234, 0x12345678};
+// 에러, 공용체는 한 번에 하나의 멤버만 사용될 수 있기 때문에
+
+공용체는 변수에 값을 주는것이 아닌, 공용체가 할당된 메모리에 값을 쓰는 것
+
+-
+
+union list {
+    char x;
+    int y;
+    long z;
+} u = {0x12345678};
+공용체는 하나의 값을 공유함.
+
+-
+
+#include <stdio.h>
+
+int en(int i);
+
+int main(void) {
+    int i;
+    i = en(10);
+    printf("10 is %d\n", i);    // 10 is 2560
+    i = en(i);
+    printf("i is %d\n", i);     // i is 10
+
+    return 0;
+}
+
+int en(int i) {
+    union cry_type {
+        int num;
+        char c[2];
+    } cry;
+    unsigned char ch;
+
+    cry.num = i;
+
+    ch = cry.c[0];
+    cry.c[0] = cry.c[1];
+    cry.c[1] = ch;
+
+    return cry.num;
+}
+
+-
+
+#include <stdio.h>
+#include <coino.h>
+
+struct sample {
+    unsgined a : 1;
+    unsigned b : 1;
+    unsigned c : 1;
+    unsigned d : 1;
+    unsigned e : 1;
+    unsigned f : 1;
+    unsigned g : 1;
+    unsigned h : 1;
+};
+
+union key_type {
+    char ch;
+    struct sample bits;
+} key;
+
+key.ch = 0x12;
+
+!함수 포인터
+함수를 가리키는 포인터
+
+반환형 (*함수포인터이름)(매개변수1, 매개변수2, ...)
+
+ex)
+#include <stdio.h>
+
+int add(int, int);
+int sub(int, int);
+
+int main(void) {
+    int result;
+    int (*pf)(int, int);    // 함수 포인터 선언
+
+    pf = add;
+    result = pf(10, 20);    // add(10, 20)과 같음
+    printf("result = %d\n", result);    // result = 30
+
+    pf = sub;
+    result = pf(10, 20);    // sub(10, 20)과 같음
+    printf("result = %d\n", result);    // result = -10
+
+    return 0;
+}
+
+! 함수 포인터의 배열
+반환형 (*배열이름[배열의크기])(매개변수목록);
+
+ex)
+#include <stdio.h>
+
+void menu(void);
+int add(int, int);
+int sub(int, int);
+int mul(int, int);
+int div(int, int);
+
+int main(void) {
+    int choice, x, y;
+    int (*pf[4])(int, int); // 함수 포인터 배열 선언
+
+    pf = {add, sub, mul, div};  // 함수 포인터 배열 초기화
+
+    menu();
+    scanf("%d", &choice);   
+    scnaf("%d %d", &x, &y);
+
+    printf("%d\n", pf[choice](x, y));
+
+    return 0;
+}
+
+! 함수 인수로서의 함수 포인터
+
+ex)
+#include <stdio.h>
+#include <math.h>
+
+double f1(double k);
+double f2(double k);
+double formular(double (*pf)(double), int n);
+
+int main(void) {
+    double result;
+
+    result = formular(f1, 10);
+    printf("result = %f\n", result);
+
+    result = formular(f2, 10);
+    printf("result = %f\n", result);
+
+    return 0;
+}
+
+double f1(double k) {
+    return 1.0 / k;
+}
+
+double f2(double k) {
+    return cos(k);
+}
+
+double formular(double (*pf)(double), int n) {
+    double sum = 0.0;
+
+    for(int i = 0; i < n; i++) {
+        sum += pf(i) * pf(i) + pf(i) + 1;
+    }
+
+    return sum;
+}
+
+! 다차원 배열에서 포인터의 사용
+
+포인터를 이용한 배열 원소 방문
+double get_row_avg(int m[][COLS], int r) {
+    int *p, *endp;
+    double sum = 0.0;
+
+    p = &m[r][0];
+    endp = &m[r][COLS];
+
+    while(p < endp) {
+        sum += *p++;
+    }
+
+    return sum / COLS;
+}
+
+! void 포인터
+순수하게 메모리의 주소만 가지고 있는 포인터
+그 주소에 어떤 자료형이 있는지 모름.
+
+ex)
+void* vp;
+*vp;    // 에러
+vp++;   // 에러
+vp--;   // 에러
+
+-
+
+#include <stdio.h>
+
+int main(void) {
+    int a[] = {10, 20, 30, 40, 50};
+    void* vp;
+
+    vp = a;
+    vp = &a[2];
+
+    *vp = 35;   // 에러
+    vp++;       // 에러
+
+    *(int*)vp = 35;
+
+    return 0;
+}
+
+! main() 함수의 인수
+
+지금까지의 main() 함수 형태 : int main(void)
+
+외부로부터 입력을 받는 main() 함수 형태 : int main(int argc, char* argv[])
+
+ex)
+#include <stdio.h>
+
+int main(int argc, char* argv[]) {
+    printf("argc = %d\n", argc);
+
+    for(int i = 0; i < argc; i++) {
+        printf("argv[%d] = %s\n", i, argv[i]);
+    }
+
+    return 0;
+}
+
+-
+
+Q.1
+모든 변수들은 main() 함수에서 정의되었고, main() 함수에서는 abc(a); 를 호출하였다.
+abc() 함수는 아래와 같다. abc(a) 함수를 호출한 결과값은 무엇인지, 오류가 있다면 그 오류에 대해 설명하시오
+
+int abc(char** p) {
+    return p[1][3] + 1;
+}
+
+A.1
+반환형이 int 인데 return 은 char,
+2차원 배열과 이중 포인터는 서로 쌍이 맞지 않음.
+배열은 주소 -> 값. 이중 포인터는 주소 -> 주소
+
+Q.2
+큰 수에서 작은 수의 순서로 저장된 100개 항목을 가지는 정수형 배열 data[100]이 있다.
+이 배열에서 원하는 값을 이진탐색 방법으로 찾아내는 프로그램을 작성하시오.
+원하는 값이 없을 경우 데이터를 못찾았다고 출력하면 된다.
+
+A.2
+#include <stdio.h>
+
+int main(void) {
+    int data[100] = {0, };
+    int target, start, end, mid;
+
+    printf("target : ");
+    scanf("%d", &target);
+
+    start = 0;
+    end = 99;
+
+    while(start <= end) {
+        mid = (start + end) / 2;
+
+        if(data[mid] == target) {
+            printf("data[%d] = %d\n", mid, data[mid]);
+            break;
+        } else if(data[mid] > target) {
+            end = mid - 1;
+        } else {
+            start = mid + 1;
+        }
+    }
+
+    if(start > end) {
+        printf("data not found\n");
+    }
+
+    return 0;
+}
+
+Q.3
+생년월일 8자리를 scnaf()함수를 이용해 입력하면 몇년 몇월 몇일 생일인지 출력하고,
+2022년 11월 28일 기준으로 만 몇 살인지도 출력하는 프로그램을 작성하시오.
+
+A.3
+#include <stdio.h>
+
+int main(void) {
+    int year, month, day;
+    int age;
+
+    printf("생년월일 : ");
+    scanf("%d", &year);
+    scanf("%d", &month);
+    scanf("%d", &day);
+
+    printf("%d년 %d월 %d일 생일\n", year, month, day);
+
+    age = 2022 - year + 1;
+
+    printf("만 %d 살\n", age);
+
+    return 0;
+}
+
+Q.4
+문자열의 길이를 구하는 int strlen(char* a) 함수를 작성하시오.
+단, strlen() 함수 안에서는 a 이외의 변수를 딱 1개만 정의하여 사용할 수 있다.
+
+-
+
+int a1[5] = {1, 2, 3, 4, 5},
+    x1[5] = {10, 20, 30, 40, 50};
+
+swap1(a1, x1);
+
+void swap1(int* a1, int* x1) {
+    int tmp;
+
+    tmp = x1[0];
+    x1[0] = a1[0];
+    a1[0] = tmp;
+}
+
+-
+
+char* a = "123",
+    b[] = "123",
+    c[3] = {1,2,3};

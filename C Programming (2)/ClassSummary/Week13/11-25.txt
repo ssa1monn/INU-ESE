@@ -16,8 +16,6 @@ struct 구조체명칭 {
 
 struct 구조체명칭 구조체 변수명 로 선언
 
--
-
 struct address{
     char name[20];
     char phone[20];
@@ -34,8 +32,6 @@ struct address{
 struct address myAddress;
 구조체를 만들고 나중에 변수를 선언
 
--
-
 ! 도트 연산자
 구조체변수명.멤버변수
 
@@ -48,8 +44,6 @@ struct address{
 struct address myAddress;
 
 Address.name = "홍길동";
-
--
 
 ! 구조체 변수의 치환
 
@@ -69,8 +63,6 @@ var2 = var1; // var2.a = 10, var2.f = 3.14 한번에 복사 가능.
 구조체 멤버의 함수 인자 전달
  -> 구조체 멤버의 모든 데이터를 한번에 넘겨질 수 있음
 
--
-
 ! 구조체 변수의 초기화
 
 struct type {
@@ -79,8 +71,6 @@ struct type {
 } var1 = {10, 3.14};
 
 struct type var2 = {10, 3.14};
-
--
 
 ! 구조체 변수의 메모리 할당
 
@@ -133,8 +123,6 @@ struct tmp {
 
 sizeof(tmp) = 64;
 
--
-
 ! 구조체 배열
 
 struct book {
@@ -145,8 +133,6 @@ struct book {
 
 book[1].price = 10000;
 book[2].title[1] = 'a';
-
--
 
 ! 구조체 포인터
 
@@ -164,8 +150,6 @@ struct type *ptr;
 사용하려면 반드시
 struct type var;
 ptr = &var;
-
--
 
 ! 간접 참조 연산자
 
@@ -186,12 +170,8 @@ p = &a;
 p->kor;     // =(*p).kor, 90
 p->math;    // =(*p).math, 95
 
--
-
 ! 중첩된 구조체
 구조체의 원소가 또 다른 구조체
-
--
 
 ! 자기 참조 구조체
 
@@ -201,8 +181,6 @@ struct list {
     int age;
     struct list *next;
 }
-
--
 
 ! 비트 필드 구조체
 
