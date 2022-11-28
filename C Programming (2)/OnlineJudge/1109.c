@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void makeArrayandInput(char **str);
+void makeArrayandInput(char** str);
 
 int main() {
 
@@ -32,9 +32,9 @@ int main() {
     return 0;
 }
 
-
-void makeArrayandInput(char **str) {
-    for(int i = 0; i < 6; i++) {
-        
+void makeArrayandInput(char** str) {
+    for (int i = 0; i < 6; i++) {
+        str[i] = (char*)malloc(sizeof(char) * 100);
+        scanf("%s", str[i]);
     }
 }
